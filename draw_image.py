@@ -27,7 +27,7 @@ VCOM = -2.27  # Specific VCOM value for your hardware
 # load your particular display using the displayfactory, driver specified in INI file
 print('Loading display')
 try:
-    epd = displayfactory.load_display_driver(DISPLAY_TYPE, {})
+    epd = displayfactory.load_display_driver()
 except EPDNotFoundError:
     print("Couldn't find your display")
     sys.exit()
