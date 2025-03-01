@@ -31,7 +31,8 @@ try:
     display = AutoEPDDisplay.load_display_driver()
     epd = display.epd
 
-except Exception:
+except Exception as e:
+    print(e)
     print("Couldn't find your display")
     sys.exit()
 
