@@ -21,27 +21,20 @@ import sys
 from omni_epd import displayfactory, EPDNotFoundError
 from PIL import Image
 
-"""
-This example will load your display from the INI file in this directory.
-It will then load the image and write it to the display, applying the image
-post-processing rules also defined in the INI file, these are:
+DISPLAY_TYPE = "waveshare_epd.it8951"
+VCOM = -2.27  # Specific VCOM value for your hardware
 
-* rotate 180 degrees
-* apply contrast
-* sharpen image
-
-"""
 # load your particular display using the displayfactory, driver specified in INI file
 print('Loading display')
 try:
-    epd = displayfactory.load_display_driver()
+    epd = displayfactory.load_display_driver(DISPLAY_TYPE, {'vcom': VCOM})
 except EPDNotFoundError:
     print("Couldn't find your display")
     sys.exit()
 
 # if now load an image file using the Pillow lib
 print('Loading image')
-image = Image.open('../PIA03519_small.jpg')
+image = Image.open('PIA03519_small.jpg')
 
 # resize for your display
 image = image.resize((epd.width, epd.height))
