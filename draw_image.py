@@ -18,8 +18,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 """
 import sys
-from omni_epd import displayfactory, EPDNotFoundError
 from PIL import Image
+from IT8951.display import AutoEPDDisplay
+
 
 DISPLAY_TYPE = "waveshare_epd.it8951"
 VCOM = -2.27  # Specific VCOM value for your hardware
@@ -27,7 +28,9 @@ VCOM = -2.27  # Specific VCOM value for your hardware
 # load your particular display using the displayfactory, driver specified in INI file
 print('Loading display')
 try:
-    epd = displayfactory.load_display_driver()
+    display = displayfactory.load_display_driver()
+    epd = display.epd
+
 except EPDNotFoundError:
     print("Couldn't find your display")
     sys.exit()
