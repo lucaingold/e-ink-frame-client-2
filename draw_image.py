@@ -20,6 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import sys
 from PIL import Image
 from IT8951.display import AutoEPDDisplay
+from omni_epd import displayfactory, EPDNotFoundError
 
 
 DISPLAY_TYPE = "waveshare_epd.it8951"
@@ -28,14 +29,16 @@ VCOM = -2.27  # Specific VCOM value for your hardware
 # load your particular display using the displayfactory, driver specified in INI file
 print('Loading display')
 try:
-    display = AutoEPDDisplay(vcom=-2.27, spi_hz=24000000)
-    epd = display.epd
-
-except Exception as e:
+    # display = AutoEPDDisplay(vcom=-2.27)
+    # epd = display.epd
+    try:
+    epd = displayfactory.load_display_driver(DISPLAY_TYPE)
+except EPDNotFoundError:
     print(e)
-    print("Couldn't find your display")
+    print(f"Couldn't find {DISPLAY_TYPE}")
     sys.exit()
 
+except Exception as e:
 # if now load an image file using the Pillow lib
 print('Loading image')
 image = Image.open('PIA03519_small.jpg')
